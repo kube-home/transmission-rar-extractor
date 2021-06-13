@@ -12,7 +12,13 @@ func connection() transmission.TransmissionClient {
 	if serverUrl == "" {
 		serverUrl = "http://127.0.0.1:9091"
 	}
-	transmissionbt := transmission.New(serverUrl, "admin", "")
+	username := os.Getenv("TRANSMISSION_USER")
+	if username == "" {
+		username = "admin"
+	}
+	password := os.Getenv("TRANSMISSION_PASS")
+
+	transmissionbt := transmission.New(serverUrl, username, password)
 
 	return transmissionbt
 }
